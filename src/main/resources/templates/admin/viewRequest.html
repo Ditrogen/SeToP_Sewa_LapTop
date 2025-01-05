@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Request Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body>
+    
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/admin">SeToP Admin</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/admin">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="admin/viewRequest">Requests</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link ms-auto" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!--Table of Requests-->
+    <div class="container my-4">
+      <h1 class="text-center mb-3">List of Requests</h1>
+      <a class="btn btn-primary" href="/admin/createRequest">Create New Request</a>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Laptop</th>
+            <th>Start Lend Date</th>
+            <th>Return Date</th>
+            <th>Actual Return</th>
+            <th>Fines</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+          <tr th:each="item : ${requestItems}">
+            <td th:text="${item.user.username}"></td>
+            <td th:text="${item.user.name}"></td>
+            <td th:text="${item.user.phone_number}"></td>
+            <td th:text="${item.laptop.model_name}"></td>
+            <td th:text="${item.start_date}"></td>
+            <td th:text="${item.expected_return_date}"></td>
+            <td th:text="${item.acttual_return_date}"></td>
+            <td th:text="${item.fines}"></td>
+            <td th:text="${item.total}"></td>
+            <td th:text="${item.status}"></td>
+  
+            <td style="white-space:nowrap">
+              <a th:if="${item.status} == REQ" class="btn btn-success btn-sm" 
+                  th:href="@{/admin/approveRequest(id=${item.id})}">
+                  Approve
+              </a>
+              <a th:if="${item.status} == RET" class="btn btn-success btn-sm" 
+                  th:href="@{/admin/checkRequest(id=${item.id})}">
+                  Check
+              </a>
+              <a class="btn btn-warning btn-sm" 
+                  th:href="@{/admin/editRequest(id=${item.id})}">
+                  Edit
+              </a>
+              <a class="btn btn-danger btn-sm" 
+                  th:href="@{/admin/cancelRequest(id=${item.id})}"
+                  onclick="return confirm('Are you sure?')">
+                  Delete
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+    </div>
+  
+    
+  
+  </body>
+</html>
