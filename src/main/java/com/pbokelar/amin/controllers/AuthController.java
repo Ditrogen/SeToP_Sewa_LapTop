@@ -25,13 +25,13 @@ public class AuthController {
 
         User user = userRepository.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            if (user.getRole().equals("USER")) {
+            if (user.getRole().getRole().equals("USER")) {
                 user.setLoggedin(1);
 
                 userRepository.save(user);
 
                 return "redirect:/enduser";
-            } else if (user.getRole().equals("ADMIN")) {
+            } else if (user.getRole().getRole().equals("ADMIN")) {
                 return "redirect:/admin";
             }
         }

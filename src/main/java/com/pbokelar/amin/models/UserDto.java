@@ -6,7 +6,7 @@ public class UserDto {
     
     @NotEmpty(message="Username is required") private String username;
     @NotEmpty(message = "Password is required") private String password;
-    private String role;
+    private Role role;
     private String name;
     private String phone_number;
     private String address;
@@ -25,12 +25,7 @@ public class UserDto {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
+    
     public String getName() {
         return name;
     }
@@ -54,6 +49,12 @@ public class UserDto {
     }
     public void setLoggedin(int loggedin) {
         this.loggedin = loggedin;
+    }
+    public Role getRole() {
+        return role;
+    }
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     

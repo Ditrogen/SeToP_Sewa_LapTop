@@ -11,6 +11,8 @@ import com.pbokelar.amin.repositories.UserRepository;
 
 
 
+
+
 @Controller
 public class ViewController {
 
@@ -23,7 +25,7 @@ public class ViewController {
     
     @GetMapping({"","/"})
     public String landingPage() {
-        return "landingPage"; // ini harus diganti klo mau implement authentication
+        return "landingPage";
     }
     
     @GetMapping("/login")
@@ -36,8 +38,6 @@ public class ViewController {
 
         var user = userRepository.findByLoggedin(1);
 
-        //Sort sort = Sort.by(Sort.Direction.DESC, "type");
-        //var laptops = laptopRepository.findByType("Gaming", sort);
         var laptops = laptopRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
 
         model.addAttribute("laptops", laptops);
@@ -53,6 +53,12 @@ public class ViewController {
 
         return "admin/adminDashboard";
     }
+    
+    @GetMapping("/errorPage")
+    public String errorPage() {
+        return "errorPage";
+    }
+    
 
 
     
